@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+
+  strike-js:
+    image: rahulbile/strike-js:latest
+    env_file: env
+    hostname: strike-js
+    ports:
+      - "2021:2021"

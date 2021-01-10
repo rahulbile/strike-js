@@ -1,0 +1,8 @@
+fixtures:
+  enabled:
+    __name: FIXTURES
+    __format: json
+  baseUrl: BASE_URL
+  apiUrl: API_URL
+  scriptUrl: SCRIPT_URL
+  port: PORT

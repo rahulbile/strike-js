@@ -1,0 +1,7 @@
+coverage/
+data/
+dist/
+node_modules/
+public/
+vendor/
+lb-services.js

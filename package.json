@@ -1,0 +1,50 @@
+{
+  "name": "strike.js",
+  "version": "0.0.1",
+  "description": "Bitcoin Payments Helper Library powered by Strike Payment",
+  "main": "src/server/server.js",
+  "scripts": {
+    "start": "nps",
+    "test": "nps test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rahulbile/strike-js.git"
+  },
+  "keywords": [
+    "strike",
+    "strikejs"
+  ],
+  "contributors": [
+    "Rahul Bile <rahul.rmcet@gmail.com> (https://github.com/rahulbile)"
+  ],
+  "author": "rahulbile",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/rahulbile/strike-js/issues"
+  },
+  "homepage": "https://github.com/rahulbile/strike-js#readme",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-preset-env": "1.7.0",
+    "config": "3.3.3",
+    "css-loader": "^5.0.1",
+    "lodash": "^4.17.20",
+    "loglevel": "^1.7.1",
+    "style-loader": "^2.0.0",
+    "superstatic": "^7.1.0"
+  },
+  "devDependencies": {
+    "app-root-path": "3.0.0",
+    "babel-loader": "^8.2.2",
+    "copy-webpack-plugin": "^7.0.0",
+    "ejs": "3.1.5",
+    "express": "4.17.1",
+    "fs": "0.0.1-security",
+    "nps": "^5.10.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0",
+    "webpack-dev-server": "^3.11.1"
+  }
+}

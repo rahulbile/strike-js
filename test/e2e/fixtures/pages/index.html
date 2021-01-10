@@ -1,0 +1,14 @@
+<% TITLE = 'FIXTURES INDEX'; %>
+<%- include ("_partials/frameset/header.html") %>
+
+<h4>Pages</h4>
+<div class="list-group">
+  <a href="./basic/donate.html" class="list-group-item">Donate page</a>
+</div>
+
+<h4>Configuration</h4>
+<pre><%= JSON.stringify(settings, null, 2) %></pre>
+
+<%- include ("./_partials/frameset/footer.html") %>
+</body>
+</html>

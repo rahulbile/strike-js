@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  strike-js:
+    build:
+      context: .
+      args:
+        - NPM_TOKEN
+        - NODE_ENV
+    command: nps dev
+    volumes:
+      - .:/app
+      - /app/node_modules

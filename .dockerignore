@@ -1,0 +1,4 @@
+data/*
+config/local*
+coverage
+node_modules

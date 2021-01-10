@@ -1,0 +1,7 @@
+apps:
+  - name: strike-js
+    script: server.js
+    args: --color
+    env:
+      DEBUG_FD: 1
+      DEBUG_COLORS: 1
