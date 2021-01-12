@@ -11,3 +11,32 @@
   z-index: 999;
   font-family: 'Lato', 'Helvetica', 'Arial', 'Sans-Serif', sans-serif;
 }
+
+#paymentInfo,
+#QrSlider,
+#paymentRequestRefresh,
+#paymentRequestInvoiceCopy {
+  display: none;
+}
+
+/* Strike Button Styling */
+.strike-btn {
+ box-sizing: border-box;
+ margin: 0px 0px 12px;
+ min-width: 0px;
+ appearance: none;
+ display: inline-block;
+ text-align: center;
+ text-decoration: none;
+ border: 1px solid rgb(255, 255, 255);
+ font-family: Montserrat, system-ui, sans-serif;
+ line-height: 1.4;
+ font-weight: 700;
+ color: rgb(255, 255, 255);
+ font-size: 13px;
+ outline: none;
+ border-radius: 30px;
+ padding: 15px 35px;
+ cursor: pointer;
+ width: 100%;
+}

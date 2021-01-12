@@ -61,7 +61,12 @@ export class Api {
           .then(response => {
             return response.json().then(payment => {
               Util.logDebug('Api.paymentRequest res:', payment)
+              $("#strikeInvoice").html(payment.expirySecond);
               if (_.includes(['PAID', 'EXPIRED'], payment.result)) {
+                if (payment.result === 'EXPIRED') {
+                  $("#paymentRequestRefresh").show();
+                }
+                $("#paymentInfo, #paymentRequestInvoiceCopy").hide();
                 clearInterval(interval)
                 resolve(payment)
               }

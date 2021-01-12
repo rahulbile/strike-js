@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { payment } from './payment'
 
 export class Dom {
 
@@ -63,6 +64,8 @@ export class Dom {
       colorLight : "#ffffff",
       correctLevel: QRCode.CorrectLevel.H,
     }
+    $("#paymentInfo, #QrSlider, #paymentRequestInvoiceCopy").show();
+    $("#strikeInvoice").html('60');
 
     if (params.lnInvoice) {
       const lnOptions = _.assign(QRCodeOptions, {text: `lightning:${params.lnInvoice}`});
@@ -72,8 +75,47 @@ export class Dom {
     if (params.onchainAddress) {
       const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size}`});
       var btcQrcode = new QRCode(document.getElementById("onChainQrcode"), btcOptions);
+      $('.QrCodesSlider').unslider({
+        keys: true,
+        dots: true,
+        arrows: false,
+      });
     }
 
+    // #TODO : Move to custom function
+    let lnInvoice = document.getElementById('lnQrcode').title
+    $("#paymentRequestInvoiceCopy").attr('data-clipboard-text',lnInvoice);
+    $(document).on("click", 'li[data-slide="0"]', function() {
+      $('#paymentRequestInvoiceCopy').html('Copy');
+      $("#paymentRequestInvoiceCopy").attr('data-clipboard-text',lnInvoice);
+    });
+    if (params.onchainAddress) {
+      $(document).on("click", 'li[data-slide="1"]', function() {
+        $('#paymentRequestInvoiceCopy').html('Copy');
+        let chainInvoice = document.getElementById('onChainQrcode').title
+        $("#paymentRequestInvoiceCopy").attr('data-clipboard-text',chainInvoice);
+      });
+    }
+
+    // bind the clipboard copy element
+    // #TODO : Move to custom function
+    var clipboard = new ClipboardJS('#paymentRequestInvoiceCopy');
+    clipboard.on('success', function(e) {
+      $('#paymentRequestInvoiceCopy').html('<svg height="15" viewBox="0 0 15 11" width="15"><path d="M14 1L7.178 9.354c-.584.715-1.69.858-2.47.32a1.498 1.498 0 01-.186-.148L1 6.292" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>');
+      setTimeout(function(){
+          $('#paymentRequestInvoiceCopy').html('Copy');
+      }, 5000);
+      e.clearSelection();
+    });
+
+    // bind the refresh element
+    // #TODO : Move to custom function
+    $(document).on("click", '#paymentRequestRefresh', function() {
+      $("#lnQrcode, #onChainQrcode, .unslider-nav").html('')
+       lnQrcode.clear();
+       btcQrcode.clear();
+       payment.process();
+    });
     return params.quoteId
   }
 }
