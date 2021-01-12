@@ -11,7 +11,7 @@ export class Config {
       Util.logDebug(`strikeJS version ${SJS_BUILD} SJS href ${window.location.href}`)
 
       // Check if the required fields are there
-      const requiredKeys = [ 'apiUrl', 'userName' ]
+      const requiredKeys = [ 'userName' ]
 
       if ($(config.submitButton).length !== 1) {
         Util.logInfo(`strikeJS configuration error: submitButton ${config.submitButton} not found`)
@@ -28,7 +28,7 @@ export class Config {
       let payment = new Payment()
 
       // Add predefined fields
-      //sjs.fields = Util.getPageFields(config)
+      sjs.fields = Util.getPageFields(config)
 
       // Attach the creditcard submit button
       $(config.submitButton).on('click', event => {
@@ -45,7 +45,8 @@ export class Config {
 
       sjs._pageConfigs = {}
 
-      return payment
+      // Initialze the payment methods
+      return payment.init()
     })
   }
 }

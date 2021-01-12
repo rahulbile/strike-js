@@ -9,9 +9,10 @@ export class Bootstrap {
    */
   static loadDependencies(cb) {
     $.when(
-    //  $.getScript('//cdnjs.cloudflare.com/ajax/libs/fetch/3.5.0/fetch.min.js'),
+      $.getScript('//cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.1.3/fetch-jsonp.min.js'),
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.min.js'),
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js'),
+      $.getScript('//cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'),
     )
       .done(() => {
         // Ensure that validate.js knows about our Promise implementation, which may have become
@@ -49,7 +50,6 @@ export class Bootstrap {
 
       return config
         .init(params)
-        .then(payment => payment.init())
         .then(() => {
           Util.logInfo('strike.js loaded')
           Util.stopLoading()

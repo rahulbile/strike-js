@@ -1,4 +1,5 @@
 import { Bootstrap } from './bootstrap'
+import { Dom } from './dom'
 import log from 'loglevel'
 
 export class Util {
@@ -81,5 +82,35 @@ export class Util {
    static enableInputs() {
      Util.logDebug('StrikeJS.enableInputs')
      $('[id^=strike-]').attr('disabled', false)
+   }
+
+   /**
+    * Validate and return the fields which are added on the page.
+    * @returns {Object}
+    */
+   static getPageFields(config) {
+     const fields = {}
+
+     // loop through all supported fields types and add to the list
+     const supportedFields = Util.getFields()
+
+     Object.keys(supportedFields).forEach(field => {
+       if (Dom.getElementLength(field)) {
+         fields[field] = Dom.getElement(field)
+       }
+     })
+
+     return fields
+   }
+
+   /**
+    * Expected field defination
+    * @returns {Object}
+    */
+   static getFields() {
+    return {
+      'qrCode': 'qRCode',
+      'amount': 'amount',
+    }
    }
  }

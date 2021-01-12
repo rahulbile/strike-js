@@ -1,7 +1,10 @@
 <% TITLE = 'BASIC: DONATION PAGE'; %>
 <%- include ("../_partials/frameset/header.html") %>
 
-<input autocomplete="off" type="number" font-size="70" inputmode="decimal" name="amount" placeholder="0.00" placeholdercolor="#3B3B3B" min="0.1" max="5" value="">
+<div id="lnQrcode"></div>
+<div id="onChainQrcode"></div>
+<div id="donateQrCode" data-strikejs="qRCode"></div>
+<input id="amountBox" autocomplete="off" data-strikejs="amount" type="number" font-size="70" inputmode="decimal" name="amount" placeholder="0.00" placeholdercolor="#3B3B3B" min="0.1" max="5" value="">
 <input id="submitButton" type="submit" value="Donate">
 
 <%- include ("../_partials/frameset/footer.html") %>
