@@ -64,8 +64,10 @@ export class Dom {
       correctLevel: QRCode.CorrectLevel.H,
     }
 
-    const lnOptions = _.assign(QRCodeOptions, {text: `lightning:${params.lnInvoice}`});
-    var lnQrcode = new QRCode(document.getElementById("lnQrcode"), lnOptions);
+    if (params.lnInvoice) {
+      const lnOptions = _.assign(QRCodeOptions, {text: `lightning:${params.lnInvoice}`});
+      var lnQrcode = new QRCode(document.getElementById("lnQrcode"), lnOptions);
+    }
 
     if (params.onchainAddress) {
       const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size}`});

@@ -16,7 +16,7 @@ export class Api {
   }
 
   /**
-   * Submit a paymnet request
+   * Submit a payment request
    */
   paymentRequest(data) {
     return new Promise((resolve, reject) => {
@@ -48,11 +48,28 @@ export class Api {
   }
 
   /**
-   * Submit a paymnet request
+   * Track payment status
    */
   paymentStatus(quoteId) {
     Util.logDebug(`Api.paymentStatus: checking status for quoteId : ${quoteId}`)
-    return true
+
+    const interval = setInterval(() => {
+      const promise = new Promise((resolve, reject) => {
+        window
+          .fetch(`https://api-dev.zaphq.io/api/v0.3/public/receive/${quoteId}`)
+          .then(Api.checkStatus)
+          .then(response => {
+            return response.json().then(payment => {
+              Util.logDebug('Api.paymentRequest res:', payment)
+              if (_.includes(['PAID', 'EXPIRED'], payment.result)) {
+                clearInterval(interval)
+                resolve(payment)
+              }
+            })
+          })
+      })
+      promise.then(payment => payment)
+    }, 1000)
   }
 }
 

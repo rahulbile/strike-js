@@ -44,7 +44,7 @@ export class Payment {
           return Dom.generateQrCode(res.paymentConfig)
         })
         .then(quoteId => {
-          Util.logDebug(`payment: QrCode generation success, quoteId : ${quoteId} await payment status.`)
+          Util.logDebug(`payment: QrCode generation success, quoteId : ${quoteId} awaiting payment status.`)
           return api.paymentStatus(quoteId)
         })
         .then(res => {
