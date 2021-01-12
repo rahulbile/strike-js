@@ -1,4 +1,5 @@
 import { Util } from './util'
+import { Dom } from './dom'
 
 export class Api {
 
@@ -73,6 +74,10 @@ export class Api {
                 $("#paymentInfo, #paymentRequestInvoiceCopy").hide();
                 clearInterval(interval)
                 resolve(payment)
+
+                if (payment.result === 'PAID' &&  _.get(sjs.config, 'redirectUrl', false)) {
+                  Dom.navigateTo(sjs.config.redirectUrl)
+                }
               }
             })
           })

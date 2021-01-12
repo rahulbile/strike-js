@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { payment } from './payment'
+import { Util } from './util'
 
 export class Dom {
 
@@ -121,5 +122,13 @@ export class Dom {
        payment.process();
     });
     return params.quoteId
+  }
+
+  /**
+   * Redirect the user to requested page
+   */
+  static navigateTo(page) {
+    Util.logDebug(`Dom.navigateTo: ${page}`)
+    window.location.assign(page)
   }
 }
