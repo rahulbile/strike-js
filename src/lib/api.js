@@ -65,6 +65,10 @@ export class Api {
               if (_.includes(['PAID', 'EXPIRED'], payment.result)) {
                 if (payment.result === 'EXPIRED') {
                   $("#paymentRequestRefresh").show();
+                  // Add class to QrSlider for bluring the request and freeze
+                  $("#QrSlider").addClass('qrCodeExpired')
+                  // Add overlay message of expiration
+                  $("#QrCodeLoader").html('Expired')
                 }
                 $("#paymentInfo, #paymentRequestInvoiceCopy").hide();
                 clearInterval(interval)

@@ -2,12 +2,15 @@
 <%- include ("../_partials/frameset/header.html") %>
 
 
+<div id="QrCodeLoader" class="overlay"></div>
 <div id="QrSlider" class="qrCode QrCodesSlider">
   <ul>
     <li>
+      <span id="lnQrcodeAmount"></span>
       <span id="lnQrcode"></span>
     </li>
     <li>
+      <span id="onChainQrcodeAmount"></span>
       <span id="onChainQrcode"></span>
     </li>
   </ul>

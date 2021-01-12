@@ -70,11 +70,13 @@ export class Dom {
     if (params.lnInvoice) {
       const lnOptions = _.assign(QRCodeOptions, {text: `lightning:${params.lnInvoice}`});
       var lnQrcode = new QRCode(document.getElementById("lnQrcode"), lnOptions);
+      $("#lnQrcodeAmount").text('$' + params.priceUsd);
     }
 
     if (params.onchainAddress) {
       const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size}`});
       var btcQrcode = new QRCode(document.getElementById("onChainQrcode"), btcOptions);
+      $("#onChainQrcodeAmount").text(params.size + ' BTC');
       $('.QrCodesSlider').unslider({
         keys: true,
         dots: true,
@@ -111,9 +113,11 @@ export class Dom {
     // bind the refresh element
     // #TODO : Move to custom function
     $(document).on("click", '#paymentRequestRefresh', function() {
-      $("#lnQrcode, #onChainQrcode, .unslider-nav").html('')
+      $("#lnQrcode, #onChainQrcode, .unslider-nav, #QrCodeLoader").html('')
        lnQrcode.clear();
        btcQrcode.clear();
+       $("#QrSlider").removeClass('qrCodeExpired')
+       $("#paymentRequestRefresh").hide();
        payment.process();
     });
     return params.quoteId

@@ -40,3 +40,12 @@
  cursor: pointer;
  width: 100%;
 }
+
+.qrCodeExpired {
+  filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#paymentInfo {
+  color: rgb(253, 152, 0);
+}
