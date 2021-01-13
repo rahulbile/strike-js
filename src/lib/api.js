@@ -29,9 +29,10 @@ export class Api {
         },
         body: JSON.stringify(data),
       }
+      let apiUrl = _.get(sjs.config, 'apiUrl', 'https://api.zaphq.io/api/v0.3')
 
       window
-        .fetch(`https://api-dev.zaphq.io/api/v0.3/public/users/${sjs.config.userName}/pay`, payload)
+        .fetch(`${apiUrl}/public/users/${sjs.config.userName}/pay`, payload)
         .then(Api.checkStatus)
         .then(response => {
           response.json().then(content => {
@@ -56,8 +57,9 @@ export class Api {
 
     const interval = setInterval(() => {
       const promise = new Promise((resolve, reject) => {
+        let apiUrl = _.get(sjs.config, 'apiUrl', 'https://api.zaphq.io/api/v0.3')
         window
-          .fetch(`https://api-dev.zaphq.io/api/v0.3/public/receive/${quoteId}`)
+          .fetch(`${apiUrl}/public/receive/${quoteId}`)
           .then(Api.checkStatus)
           .then(response => {
             return response.json().then(payment => {
