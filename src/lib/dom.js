@@ -77,7 +77,7 @@ export class Dom {
     if (params.onchainAddress) {
       const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size['amount']}`});
       var btcQrcode = new QRCode(document.getElementById("onChainQrcode"), btcOptions);
-      $("#onChainQrcodeAmount").text(params.size + ' BTC');
+      $("#onChainQrcodeAmount").text(params.size['amount'] + ' BTC');
       $('.QrCodesSlider').unslider({
         keys: true,
         dots: true,
