@@ -71,11 +71,11 @@ export class Dom {
     if (params.lnInvoice) {
       const lnOptions = _.assign(QRCodeOptions, {text: `lightning:${params.lnInvoice}`});
       var lnQrcode = new QRCode(document.getElementById("lnQrcode"), lnOptions);
-      $("#lnQrcodeAmount").text('$' + params.priceUsd);
+      $("#lnQrcodeAmount").text('$' + params.price['amount']);
     }
 
     if (params.onchainAddress) {
-      const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size}`});
+      const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size['amount']}`});
       var btcQrcode = new QRCode(document.getElementById("onChainQrcode"), btcOptions);
       $("#onChainQrcodeAmount").text(params.size + ' BTC');
       $('.QrCodesSlider').unslider({

@@ -34,7 +34,10 @@ export class Payment {
       console.log("processing the payment request and show the QR code")
 
       const payParams = {
-        amountUsd: Dom.getElementValue(sjs.fields['amount']),
+        amount: {
+						'amount': Dom.getElementValue(sjs.fields['amount']),
+						'currency': 'USD',
+					},
         description: "Strike-JS : Payment Request"
       }
 

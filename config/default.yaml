@@ -1,4 +1,4 @@
 fixtures:
-  apiUrl: https://api.zaphq.io/api/v0.3/
+  apiUrl: https://api.zaphq.io/api/v0.4/
   scriptUrl: /dist/strike.js
   port: 2021
