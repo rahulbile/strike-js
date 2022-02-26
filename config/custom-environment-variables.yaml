@@ -4,5 +4,6 @@ fixtures:
     __format: json
   baseUrl: BASE_URL
   apiUrl: API_URL
+  apiKey: API_KEY
   scriptUrl: SCRIPT_URL
   port: PORT

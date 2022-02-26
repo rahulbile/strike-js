@@ -67,17 +67,16 @@ export class Dom {
     }
     $("#paymentInfo, #QrSlider, #paymentRequestInvoiceCopy").show();
     $("#strikeInvoice").html('60');
-
     if (params.lnInvoice) {
       const lnOptions = _.assign(QRCodeOptions, {text: `lightning:${params.lnInvoice}`});
       var lnQrcode = new QRCode(document.getElementById("lnQrcode"), lnOptions);
-      $("#lnQrcodeAmount").text('$' + params.price['amount']);
+      $("#lnQrcodeAmount").text('$' + params.targetAmount['amount']);
     }
 
     if (params.onchainAddress) {
-      const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.size['amount']}`});
+      const btcOptions = _.assign(QRCodeOptions, {text: `bitcoin:${params.onchainAddress}?amount=${params.sourceAmount['amount']}`});
       var btcQrcode = new QRCode(document.getElementById("onChainQrcode"), btcOptions);
-      $("#onChainQrcodeAmount").text(params.size['amount'] + ' BTC');
+      $("#onChainQrcodeAmount").text(params.sourceAmount['amount'] + ' BTC');
       $('.QrCodesSlider').unslider({
         keys: true,
         dots: true,
@@ -115,13 +114,13 @@ export class Dom {
     // #TODO : Move to custom function
     $(document).on("click", '#paymentRequestRefresh', function() {
       $("#lnQrcode, #onChainQrcode, .unslider-nav, #QrCodeLoader").html('')
-       lnQrcode.clear();
-       btcQrcode.clear();
+       // lnQrcode.clear();
+       // btcQrcode.clear();
        $("#QrSlider").removeClass('qrCodeExpired')
        $("#paymentRequestRefresh").hide();
        payment.process();
     });
-    return params.quoteId
+    return params.invoiceId
   }
 
   /**

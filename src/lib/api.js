@@ -20,27 +20,42 @@ export class Api {
    * Submit a payment request
    */
   paymentRequest(data) {
+    let apiUrl = _.get(sjs.config, 'apiUrl', 'https://api.strike.me/v1')
+    let apiKey = _.get(sjs.config, 'apiKey', null)
     return new Promise((resolve, reject) => {
       const payload = {
         method: 'post',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json;; charset=utf-8',
+          'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify(data),
       }
-      let apiUrl = _.get(sjs.config, 'apiUrl', 'https://api.zaphq.io/api/v0.4')
 
       window
-        .fetch(`${apiUrl}/public/users/${sjs.config.userName}/pay`, payload)
+        .fetch(`${apiUrl}/invoices`, payload)
         .then(Api.checkStatus)
         .then(response => {
-          response.json().then(content => {
+          return response.json().then(content => {
             Util.logDebug('Api.paymentRequest res:', content)
-            resolve({
-              paymentConfig: content
-            })
+            return content
           })
+        })
+        .then(invoice => {
+          Util.logDebug('Api.paymentRequest res: invoice generated', invoice.invoiceId)
+          window
+            .fetch(`${apiUrl}/invoices/${invoice.invoiceId}/quote`, payload)
+            .then(Api.checkStatus)
+            .then(response => {
+              response.json().then(content => {
+                content.invoiceId = invoice.invoiceId
+                Util.logDebug('Api.paymentRequest res: guote generated', content)
+                resolve({
+                    paymentConfig: content
+                })
+              })
+            })
         })
         .catch(err => {
           Util.logDebug(`Api.paymentRequest err: ${err.message}`, err)
@@ -52,33 +67,50 @@ export class Api {
   /**
    * Track payment status
    */
-  paymentStatus(quoteId) {
-    Util.logDebug(`Api.paymentStatus: checking status for quoteId : ${quoteId}`)
+  paymentStatus(invoiceId, expiration) {
+    Util.logDebug(`Api.paymentStatus: checking status for invoice : ${invoiceId}`)
+    let apiUrl = _.get(sjs.config, 'apiUrl', 'https://api.strike.me/v1')
+    let apiKey = _.get(sjs.config, 'apiKey', null)
+    const payload = {
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json;; charset=utf-8',
+        'Authorization': `Bearer ${apiKey}`
+      },
+    }
 
     const interval = setInterval(() => {
       const promise = new Promise((resolve, reject) => {
-        let apiUrl = _.get(sjs.config, 'apiUrl', 'https://api.zaphq.io/api/v0.4')
         window
-          .fetch(`${apiUrl}/public/receive/${quoteId}`)
+          .fetch(`${apiUrl}/invoices/${invoiceId}`, payload)
           .then(Api.checkStatus)
           .then(response => {
             return response.json().then(payment => {
               Util.logDebug('Api.paymentRequest res:', payment)
               $("#strikeInvoice").html(payment.expirySecond);
-              if (_.includes(['PAID', 'EXPIRED'], payment.result)) {
-                if (payment.result === 'EXPIRED') {
-                  $("#paymentRequestRefresh").show();
-                  // Add class to QrSlider for bluring the request and freeze
-                  $("#QrSlider").addClass('qrCodeExpired')
-                  // Add overlay message of expiration
-                  $("#QrCodeLoader").html('Expired')
-                }
-                $("#paymentInfo, #paymentRequestInvoiceCopy").hide();
-                clearInterval(interval)
-                resolve(payment)
-
-                if (payment.result === 'PAID' &&  _.get(sjs.config, 'redirectUrl', false)) {
+              if (_.includes(['PAID', 'UNPAID'], payment.state)) {
+                if (payment.state === 'PAID' &&  _.get(sjs.config, 'redirectUrl', false)) {
                   Dom.navigateTo(sjs.config.redirectUrl)
+                  clearInterval(interval)
+                  resolve(payment)
+                }
+                if (payment.state === 'UNPAID') {
+                  // Check if the quote is expired or no
+                  var currenTime = new Date();
+                  var timeleft = (new Date(expiration).getTime() - currenTime.getTime()) / 1000;
+
+                  if (timeleft < 1) {
+                    // Mark as expired
+                    $("#paymentRequestRefresh").show();
+                    // Add class to QrSlider for bluring the request and freeze
+                    $("#QrSlider").addClass('qrCodeExpired')
+                    // Add overlay message of expiration
+                    $("#QrCodeLoader").html('Expired')
+                    $("#paymentInfo, #paymentRequestInvoiceCopy").hide();
+                    clearInterval(interval)
+                    resolve(payment)
+                  }
                 }
               }
             })
