@@ -2,6 +2,7 @@
 
 'use strict'
 
+import _ from 'lodash'
 import { Dom } from './dom'
 import { Util } from './util'
 import { api } from './api'
@@ -32,23 +33,25 @@ export class Payment {
       // First we disable the inputs
       Util.disableInputs()
       console.log("processing the payment request and show the QR code")
-
+      let expiration = Date.now();
       const payParams = {
         amount: {
-						'amount': Dom.getElementValue(sjs.fields['amount']),
-						'currency': 'USD',
+            'amount': Dom.getElementValue(sjs.fields['amount']),
+            'currency': sjs.config.currency
 					},
-        description: "Strike-JS : Payment Request"
+        description: "Strike-JS : Payment Request",
+        handle: sjs.config.userName
       }
 
       api.paymentRequest(payParams)
         .then(res => {
           Util.logDebug('payment: pay request success, generating QRCode:', res)
+          expiration = _.get(res.paymentConfig, 'expiration', '')
           return Dom.generateQrCode(res.paymentConfig)
         })
-        .then(quoteId => {
-          Util.logDebug(`payment: QrCode generation success, quoteId : ${quoteId} awaiting payment status.`)
-          return api.paymentStatus(quoteId)
+        .then(invoiceId => {
+          Util.logDebug(`payment: QrCode generation success for invoice : ${invoiceId} awaiting payment status.`)
+          return api.paymentStatus(invoiceId, expiration)
         })
         .then(res => {
           resolve(res)
