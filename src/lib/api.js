@@ -97,10 +97,7 @@ export class Api {
                 }
                 if (payment.state === 'UNPAID') {
                   // Check if the quote is expired or no
-                  var currenTime = new Date();
-                  var timeleft = (new Date(expiration).getTime() - currenTime.getTime()) / 1000;
-
-                  if (timeleft < 1) {
+                  if (expiration < 1) {
                     // Mark as expired
                     $("#paymentRequestRefresh").show();
                     // Add class to QrSlider for bluring the request and freeze

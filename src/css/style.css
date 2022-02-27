@@ -49,3 +49,15 @@
 #paymentInfo {
   color: rgb(253, 152, 0);
 }
+
+.rect {
+  animation-name: dash;
+  animation-timing-function: linear;
+  animation-direction: normal;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

@@ -27,24 +27,32 @@
   "dependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "7.16.7",
+    "@chakra-ui/react": "1.8.5",
+    "@emotion/react": "11.8.1",
+    "@emotion/styled": "11.8.1",
     "babel-preset-env": "1.7.0",
     "config": "3.3.3",
     "css-loader": "^5.0.1",
+    "framer-motion": "6.2.8",
     "lodash": "^4.17.20",
     "loglevel": "^1.7.1",
+    "qrcode.react": "1.0.1",
+    "react-dom": "17.0.2",
     "style-loader": "^2.0.0",
     "superstatic": "^7.1.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "7.16.7",
     "app-root-path": "3.0.0",
     "babel-loader": "^8.2.2",
     "copy-webpack-plugin": "^7.0.0",
     "ejs": "3.1.5",
     "express": "4.17.1",
     "fs": "0.0.1-security",
-    "nps": "^5.10.0",
+    "nps": "5.10.0",
     "webpack": "^5.11.1",
     "webpack-cli": "^4.3.0",
-    "webpack-dev-server": "^3.11.1"
+    "webpack-dev-server": "4.7.4"
   }
 }
