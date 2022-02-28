@@ -3,26 +3,10 @@
 
 
 <div id="QrCodeLoader" class="overlay"></div>
-<input id="amountBox" autocomplete="off" data-strikejs="amount" type="number" font-size="70" inputmode="decimal" name="amount" placeholder="0.00" placeholdercolor="#3B3B3B" min="0.1" max="5" value="">
+<div id="strikeInvoiceCard" class="strike-invoice-card">
+<input id="amountBox" required autocomplete="off" data-strikejs="amount" type="number" font-size="70" inputmode="decimal" name="amount" placeholder="0.00" placeholdercolor="#3B3B3B" min="0.1" max="5" value="">
 <input id="submitButton" type="submit" value="Donate">
-<div id="QrSlider" class="qrCode QrCodesSlider">
-  <ul>
-    <li>
-      <span id="lnQrcodeAmount"></span>
-      <span id="lnQrcode"></span>
-    </li>
-    <li>
-      <span id="onChainQrcodeAmount"></span>
-      <span id="onChainQrcode"></span>
-    </li>
-  </ul>
 </div>
-<div id="paymentInfo">Expires in <span id="strikeInvoice"></span> seconds</div>
-<div class="strike-btn" id="paymentRequestRefresh">Refresh</div>
-<div class="strike-btn" id="paymentRequestInvoiceCopy" data-clipboard-text="">Copy</div>
-
-
-<div id="strikeInvoiceCard" class="strike-invoice-card"></div>
 
 <%- include ("../_partials/frameset/footer.html") %>
 <%- include ("../_partials/loaders/donate.html") %>

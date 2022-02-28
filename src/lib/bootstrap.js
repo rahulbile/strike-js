@@ -11,9 +11,6 @@ export class Bootstrap {
     $.when(
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.min.js'),
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/js/unslider-min.js'),
       $("<link/>", {
         rel: "stylesheet",
         type: "text/css",

@@ -1,0 +1,28 @@
+.parentDiv
+  position: relative
+  background-color: #333333
+  height: 50px
+
+.copyButton
+  position: absolute
+  right: 11px
+  top: 11px
+  font-size: 18px
+  transition: color 2s ease
+  background: transparent
+  border: none transparent // none is required for IE11 Support
+  color: '#434343'
+  button
+    border: none transparent // none is required for IE11 Support
+  &:focus
+    outline: 0
+    color: '#0000FF'
+  &:hover
+    color: '#ADD8E6'
+
+.copyButtonDark
+  color: '#ffffff'
+  &:focus
+    color: '#00008B'
+  &:hover
+    color: '#0000FF'

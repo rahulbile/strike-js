@@ -53,6 +53,10 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
+        test: /\.sass$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|vendor)/,
         use: {

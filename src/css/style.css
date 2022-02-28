@@ -61,3 +61,29 @@
     stroke-dashoffset: 0;
   }
 }
+
+.refreshButton {
+  border-radius: 100px;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 100px;
+  flex: none;
+  order: 0;
+  background: #000000;
+  flex-grow: 1;
+  margin: 0px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 15px 49px;
+  position: static;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  color: #FFFFFF;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 25px;
+}

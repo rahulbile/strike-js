@@ -13,7 +13,7 @@ export class Config {
       Util.logDebug(`strikeJS version ${SJS_BUILD} SJS href ${window.location.href}`)
 
       // Check if the required fields are there
-      const requiredKeys = [ 'userName' ]
+      const requiredKeys = ['element', 'currency', 'submitButton', 'apiKey']
 
       if ($(config.submitButton).length !== 1) {
         Util.logInfo(`strikeJS configuration error: submitButton ${config.submitButton} not found`)
