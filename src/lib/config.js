@@ -1,3 +1,5 @@
+import * as React from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
 import { Util } from './util'
 import { Payment } from './payment'
 
@@ -11,7 +13,7 @@ export class Config {
       Util.logDebug(`strikeJS version ${SJS_BUILD} SJS href ${window.location.href}`)
 
       // Check if the required fields are there
-      const requiredKeys = [ 'userName' ]
+      const requiredKeys = ['element', 'currency', 'submitButton', 'apiKey']
 
       if ($(config.submitButton).length !== 1) {
         Util.logInfo(`strikeJS configuration error: submitButton ${config.submitButton} not found`)
@@ -49,8 +51,45 @@ export class Config {
       return payment.init()
     })
   }
+
+  generateInvoice(config) {
+    return new Promise((resolve, reject) => {
+      if (typeof config === 'undefined') {
+        return reject('No configuration found!')
+      }
+
+      Util.logDebug(`strikeJS version ${SJS_BUILD} SJS href ${window.location.href}`)
+
+      // Check if the required fields are there
+      const requiredKeys = ['element', 'apiKey', 'amount', 'currency']
+
+      // Check each required key
+      requiredKeys.forEach(requiredKey => {
+        if (typeof config[requiredKey] === 'undefined') {
+          return reject(`Configuration error: Unable to find key ${requiredKey}`)
+        }
+        return null
+      })
+
+      sjs.config = config
+      let payment = new Payment()
+
+      return payment.generateInvoice(config)
+    })
+  }
+
+  Component
 }
 
 const config = new Config()
 
 export { config }
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <ChakraProvider>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  )
+}
+export default MyApp

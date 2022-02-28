@@ -88,26 +88,22 @@ export class Api {
           .then(response => {
             return response.json().then(payment => {
               Util.logDebug('Api.paymentRequest res:', payment)
-              $("#strikeInvoice").html(payment.expirySecond);
               if (_.includes(['PAID', 'UNPAID'], payment.state)) {
                 if (payment.state === 'PAID' &&  _.get(sjs.config, 'redirectUrl', false)) {
-                  Dom.navigateTo(sjs.config.redirectUrl)
                   clearInterval(interval)
                   resolve(payment)
+                } else if (payment.state === 'PAID' &&  !_.get(sjs.config, 'redirectUrl', false)) {
+                  // no redirect url specified so just show completion tick
+                  Util.logDebug('Util.paymentSuccessCard', invoiceId)
+                  resolve(payment)
+                  Util.paymentSuccessCard(sjs.config, invoiceId)
+
                 }
                 if (payment.state === 'UNPAID') {
                   // Check if the quote is expired or no
                   var currenTime = new Date();
                   var timeleft = (new Date(expiration).getTime() - currenTime.getTime()) / 1000;
-
-                  if (timeleft < 1) {
-                    // Mark as expired
-                    $("#paymentRequestRefresh").show();
-                    // Add class to QrSlider for bluring the request and freeze
-                    $("#QrSlider").addClass('qrCodeExpired')
-                    // Add overlay message of expiration
-                    $("#QrCodeLoader").html('Expired')
-                    $("#paymentInfo, #paymentRequestInvoiceCopy").hide();
+                  if (timeleft < 2) {
                     clearInterval(interval)
                     resolve(payment)
                   }

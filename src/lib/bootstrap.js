@@ -10,20 +10,7 @@ export class Bootstrap {
   static loadDependencies(cb) {
     $.when(
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/js/unslider-min.js'),
-      $("<link/>", {
-        rel: "stylesheet",
-        type: "text/css",
-        href: "//cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider-dots.css"
-      }).appendTo("head"),
-      $("<link/>", {
-        rel: "stylesheet",
-        type: "text/css",
-        href: "//cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider.css"
-      }).appendTo("head"),
+      $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js')
     )
       .done(() => {
         // Ensure that validate.js knows about our Promise implementation, which may have become
@@ -61,6 +48,35 @@ export class Bootstrap {
 
       return config
         .init(params)
+        .then(() => {
+          Util.logInfo('strike.js loaded')
+          Util.stopLoading()
+          return cb()
+        })
+        .catch(err => {
+          Util.logError('strike.js init error', err)
+          Util.showError('There was an error loading strikejs')
+          return cb(err)
+        })
+    })
+  }
+
+  /**
+   * The generateInvoice function
+   */
+  generateInvoice(params, cb) {
+    cb = cb || _.noop
+    window.sjs = new StrikeJS(params)
+
+    Bootstrap.loadDependencies(err => {
+      if (err) {
+        Util.logError('strike.js dependency error:', err)
+        Util.showError('There was an error loading strikejs')
+        return cb(err)
+      }
+
+      return config
+        .generateInvoice(params)
         .then(() => {
           Util.logInfo('strike.js loaded')
           Util.stopLoading()

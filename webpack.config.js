@@ -53,12 +53,16 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
+        test: /\.sass$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|vendor)/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [ '@babel/preset-env' ],
+            presets: [ '@babel/preset-env', '@babel/preset-react' ],
           },
         },
       },
