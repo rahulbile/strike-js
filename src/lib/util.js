@@ -79,7 +79,7 @@ export class Util {
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
               <rect
                 onAnimationEnd={() => {
-                  $('.refreshButton').removeAttr('hidden')
+                  $('.refreshButton').css('display', 'block')
                   $('.invoiceQR').css('filter','blur(2px)')
                   $('.invoiceInfo').text('Invoice has expired')
                   $('.invoiceCountdown').attr('stroke', '#333333')
@@ -156,11 +156,11 @@ export class Util {
           // toggle qr blur and refresh
           $('.invoiceQR').css('filter','none')
           $('.invoiceInfo').text('Pay with a Lightning Wallet')
-          $('.refreshButton').prop("hidden", !this.checked)
+          $('.refreshButton').css('display', 'none')
           $('.invoiceCountdown').attr('stroke', brandColor)
           $('.invoiceAnimate').css('display', 'block')
         }}
-        hidden={true} width={size - 4} className="refreshButton"> Refresh </Button>
+        style={{ display: "none" }}width={size - 4} className="refreshButton"> Refresh </Button>
     </Box>, $(element)[0])
    }
 
