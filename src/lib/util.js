@@ -24,17 +24,23 @@ export class Util {
    */
 
    static paymentSuccessCard(config) {
-     console.log('checkign data')
-     console.log(config)
-     const redirectMessage = _.get(config, 'redirectMessage', 'Thanks for payment.')
      Util.logDebug('Util.paymentSuccessCard: Payment success', true)
-     ReactDOM.render(
-       <Box bg='#000000' position='relative' borderRadius={30} padding={20} width={320}>
-         <h4 align="center" style={{ fontWeight: "bold", color: '#FFFFFF', lineHeight: 2.2 }}>
-           {redirectMessage}
-          </h4>
-        </Box>,
-      $(_.get(config,'element', ''))[0])
+     const redirectMessage = _.get(config, 'redirectMessage', 'Thanks for payment.')
+     const redirectCallback = _.get(config, 'redirectCallback', false)
+
+     if(redirectCallback) {
+       Util.logDebug('Util.paymentSuccessCard: calling redirect callback', redirectCallback)
+       window[redirectCallback]({'invoiceId': 'TESTME', 'status': 'success'})
+     } else if (redirectMessage) {
+       Util.logDebug('Util.paymentSuccessCard: showing redirect message', true)
+       ReactDOM.render(
+         <Box bg='#000000' position='relative' borderRadius={30} padding={20} width={320}>
+           <h4 align="center" style={{ fontWeight: "bold", color: '#FFFFFF', lineHeight: 2.2 }}>
+             {redirectMessage}
+            </h4>
+          </Box>,
+        $(_.get(config,'element', ''))[0])
+     }
    }
 
    static addPaymentCard(data, amount, element = '#strikeInvoice', animationDuration = 100) {
