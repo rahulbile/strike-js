@@ -23,6 +23,20 @@ export class Util {
    * @param data data object to send with the log entry
    */
 
+   static paymentSuccessCard(config) {
+     console.log('checkign data')
+     console.log(config)
+     const redirectMessage = _.get(config, 'redirectMessage', 'Thanks for payment.')
+     Util.logDebug('Util.paymentSuccessCard: Payment success', true)
+     ReactDOM.render(
+       <Box bg='#000000' position='relative' borderRadius={30} padding={20} width={320}>
+         <h4 align="center" style={{ fontWeight: "bold", color: '#FFFFFF', lineHeight: 2.2 }}>
+           {redirectMessage}
+          </h4>
+        </Box>,
+      $(_.get(config,'element', ''))[0])
+   }
+
    static addPaymentCard(data, amount, element = '#strikeInvoice', animationDuration = 100) {
      Util.logDebug('Util.addPaymentCard', data)
      // Here currency could be passed as _.get(amount, 'currency')
