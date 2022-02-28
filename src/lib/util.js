@@ -23,14 +23,14 @@ export class Util {
    * @param data data object to send with the log entry
    */
 
-   static paymentSuccessCard(config) {
+   static paymentSuccessCard(config, invoiceId) {
      Util.logDebug('Util.paymentSuccessCard: Payment success', true)
      const redirectMessage = _.get(config, 'redirectMessage', 'Thanks for payment.')
      const redirectCallback = _.get(config, 'redirectCallback', false)
 
      if(redirectCallback) {
        Util.logDebug('Util.paymentSuccessCard: calling redirect callback', redirectCallback)
-       window[redirectCallback]({'invoiceId': 'TESTME', 'status': 'success'})
+       window[redirectCallback]({invoiceId, 'status': 'success'})
      } else if (redirectMessage) {
        Util.logDebug('Util.paymentSuccessCard: showing redirect message', true)
        ReactDOM.render(
@@ -43,10 +43,11 @@ export class Util {
      }
    }
 
-   static addPaymentCard(data, amount, element = '#strikeInvoice', animationDuration = 100) {
+   static addPaymentCard(data, amount, element = '#strikeInvoice', expiration) {
      Util.logDebug('Util.addPaymentCard', data)
      // Here currency could be passed as _.get(amount, 'currency')
      const formattedAmount = (_.get(amount, 'amount')).toLocaleString('us-US', { style: 'currency', currency: 'USD' })
+     expiration = (new Date(expiration).getTime() - new Date().getTime()) / 1000;
      const brandColor = '#CCFF00';
      const size = 280;
      let isCopied = false
@@ -82,6 +83,7 @@ export class Util {
                   $('.invoiceQR').css('filter','blur(2px)')
                   $('.invoiceInfo').text('Invoice has expired')
                   $('.invoiceCountdown').attr('stroke', '#333333')
+                  $('.invoiceAnimate').css('display', 'none')
                 }}
                 className="rect invoiceAnimate"
                 x='2'
@@ -95,7 +97,7 @@ export class Util {
                 strokeDasharray={size * 4}
                 rx='28'
                 style={{
-                  animationDuration: `${animationDuration}s`,
+                  animationDuration: `${expiration}s`,
                 }}
               />
             </svg>
@@ -156,6 +158,7 @@ export class Util {
           $('.invoiceInfo').text('Pay with a Lightning Wallet')
           $('.refreshButton').prop("hidden", !this.checked)
           $('.invoiceCountdown').attr('stroke', brandColor)
+          $('.invoiceAnimate').css('display', 'block')
         }}
         hidden={true} width={size - 4} className="refreshButton"> Refresh </Button>
     </Box>, $(element)[0])

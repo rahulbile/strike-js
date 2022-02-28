@@ -10,17 +10,7 @@ export class Bootstrap {
   static loadDependencies(cb) {
     $.when(
       $.getScript('//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js'),
-      $("<link/>", {
-        rel: "stylesheet",
-        type: "text/css",
-        href: "//cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider-dots.css"
-      }).appendTo("head"),
-      $("<link/>", {
-        rel: "stylesheet",
-        type: "text/css",
-        href: "//cdnjs.cloudflare.com/ajax/libs/unslider/2.0.3/css/unslider.css"
-      }).appendTo("head"),
+      $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js')
     )
       .done(() => {
         // Ensure that validate.js knows about our Promise implementation, which may have become

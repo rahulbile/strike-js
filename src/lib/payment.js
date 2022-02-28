@@ -55,7 +55,6 @@ export class Payment {
   processGenerateInvoice(config) {
     return new Promise((resolve, reject) => {
       var currenTime = new Date();
-      let expirationSeconds = 100
       let expirationTime
       let invoiceId
       const payParams = {
@@ -71,9 +70,8 @@ export class Payment {
           Util.logDebug('payment: pay request success, generating QRCode:', res)
           const lnInvoice = _.get(res.paymentConfig, 'lnInvoice', '')
           invoiceId =  _.get(res.paymentConfig, 'invoiceId', null)
-          expirationSeconds = (new Date(_.get(res.paymentConfig, 'expiration', '')).getTime() - currenTime.getTime()) / 1000;
           expirationTime = _.get(res.paymentConfig, 'expiration', '')
-          return Util.addPaymentCard(lnInvoice, _.get(payParams, 'amount'), config.element, expirationSeconds)
+          return Util.addPaymentCard(lnInvoice, _.get(payParams, 'amount'), config.element, expirationTime)
         })
         .then(res => {
           Util.logDebug(`payment: QrCode generation success for invoice : ${invoiceId} awaiting payment status.`)
