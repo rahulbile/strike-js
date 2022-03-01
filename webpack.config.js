@@ -57,6 +57,19 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
+        test: /\.woff(2)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: './font/[hash].[ext]',
+              mimetype: 'application/font-woff'
+            }
+          }
+        ]
+      },
+      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components|vendor)/,
         use: {

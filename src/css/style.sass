@@ -1,28 +1,42 @@
-.parentDiv
+.strikeInvoiceCopy
   position: relative
   background-color: #333333
-  height: 50px
+  line-height: 30px
+  font-family: "Source Code Pro"
+  font-size: 15px
+  font-style: normal
+  font-weight: 400
+  letter-spacing: 0px
+  text-align: left
+  color: #FFFFFF
+  height: 36px
+  left: 0px
+  border-radius: 10px
+  padding: 12px
+  justify: space-between
 
-.copyButton
+
+.strikeInvoiceCopyButton
   position: absolute
+  cursor: pointer
   right: 11px
-  top: 11px
+  top: 17px
   font-size: 18px
   transition: color 2s ease
   background: transparent
   border: none transparent // none is required for IE11 Support
-  color: '#434343'
+  color: #434343
   button
     border: none transparent // none is required for IE11 Support
   &:focus
     outline: 0
-    color: '#0000FF'
+    color: #0000FF
   &:hover
-    color: '#ADD8E6'
+    color: #ADD8E6
 
-.copyButtonDark
-  color: '#ffffff'
+.strikeInvoiceCopyButtonDark
+  color: #FFFFFF
   &:focus
-    color: '#00008B'
+    color: #00008B
   &:hover
-    color: '#0000FF'
+    color: #0000FF

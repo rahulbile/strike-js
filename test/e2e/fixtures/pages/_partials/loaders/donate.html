@@ -1,26 +1,25 @@
 <script src="/dist/lib/jquery.min.js"></script>
 <script src="<%= settings.scriptUrl %>"></script>
 <script>
-strikeJS.init({
-  'debug': true,
-  'element': '#strikeInvoiceCard',
-  'currency': 'USDT',
-  'redirectMessage': 'Thanks Satoshi',
-  'submitButton': '#submitButton',
-  'apiUrl': 'https://api.next.strike.me/v1',
-  'apiKey': '21C8EC2577022BFE31AE8DABC488E72AF05E07C359C254477FE1D7389F840CED'
-});
+// strikeJS.init({
+//   'debug': true,
+//   'element': '#strikeInvoiceCard',
+//   'currency': 'USDT',
+//   'redirectMessage': 'Thanks Satoshi',
+//   'submitButton': '#submitButton',
+//   'apiUrl': 'https://api.next.strike.me/v1',
+//   'apiKey': '21C8EC2577022BFE31AE8DABC488E72AF05E07C359C254477FE1D7389F840CED'
+// });
 
 
 // can also add :   'redirectCallback': 'baghMareSuccess',
 
-// strikeJS.generateInvoice({
-//   'debug': true,
-//   'element': '#strikeInvoiceCard',
-//   'amount': 50,
-//   'currency': 'USDT',
-//   'apiUrl': 'https://api.next.strike.me/v1',
-//   'redirectUrl': 'https://global.strike.me/',
-//   'apiKey': '21C8EC2577022BFE31AE8DABC488E72AF05E07C359C254477FE1D7389F840CED'
-// });
+strikeJS.generateInvoice({
+  'debug': true,
+  'element': '#strikeInvoiceCard',
+  'amount': 50,
+  'currency': 'USDT',
+  'redirectUrl': 'https://global.strike.me/',
+  'apiKey': 'F0179FEED84101416131124B8400E6AD23B09DA2A9D137426CE22B52BFD9C492'
+});
 </script>

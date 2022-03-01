@@ -31,9 +31,13 @@
     "@chakra-ui/react": "1.8.5",
     "@emotion/react": "11.8.1",
     "@emotion/styled": "11.8.1",
+    "@fontsource/montserrat": "4.5.5",
+    "@fontsource/open-sans": "4.5.5",
+    "@fontsource/source-code-pro": "4.5.4",
     "babel-preset-env": "1.7.0",
     "config": "3.3.3",
     "css-loader": "^5.0.1",
+    "file-loader": "6.2.0",
     "framer-motion": "6.2.8",
     "lodash": "^4.17.20",
     "loglevel": "^1.7.1",
@@ -42,7 +46,8 @@
     "react-dom": "17.0.2",
     "react-icons": "4.3.1",
     "style-loader": "^2.0.0",
-    "superstatic": "^7.1.0"
+    "superstatic": "^7.1.0",
+    "url-loader": "4.1.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.16.7",

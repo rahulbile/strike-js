@@ -1,4 +1,7 @@
 import { payment } from './payment'
+import "@fontsource/montserrat/500.css"
+import "@fontsource/montserrat/700.css"
+import "@fontsource/source-code-pro"
 import { Bootstrap } from './bootstrap'
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -10,9 +13,9 @@ import QRCodeReact from "qrcode.react";
 import { Dom } from './dom'
 import log from 'loglevel'
 import {
-  parentDiv,
-  copyButton,
-  copyButtonDark,
+  strikeInvoiceCopy,
+  strikeInvoiceCopyButton,
+  strikeInvoiceCopyButtonDark,
 } from "../css/style.sass";
 
 export class Util {
@@ -34,7 +37,7 @@ export class Util {
      } else if (redirectMessage) {
        Util.logDebug('Util.paymentSuccessCard: showing redirect message', true)
        ReactDOM.render(
-         <Box bg='#000000' position='relative' borderRadius={30} padding={20} width={320}>
+         <Box bg='#000000' position='relative' borderRadius={30} padding={20} width={280}>
            <h4 align="center" style={{ fontWeight: "bold", color: '#FFFFFF', lineHeight: 2.2 }}>
              {redirectMessage}
             </h4>
@@ -46,7 +49,11 @@ export class Util {
    static addPaymentCard(data, amount, element = '#strikeInvoice', expiration) {
      Util.logDebug('Util.addPaymentCard', data)
      // Here currency could be passed as _.get(amount, 'currency')
-     const formattedAmount = (_.get(amount, 'amount')).toLocaleString('us-US', { style: 'currency', currency: 'USD' })
+     const formattedAmount = new Intl.NumberFormat("en-US", {
+       style: "currency",
+       currency: "USD",
+       currencyDisplay: "symbol"
+     }).format(_.get(amount, 'amount'))
      expiration = (new Date(expiration).getTime() - new Date().getTime()) / 1000;
      const brandColor = '#CCFF00';
      const size = 280;
@@ -55,16 +62,16 @@ export class Util {
     // const [isCopied, setIsCopied] = useState(false);
      Util.logDebug('Util.addPaymentCard', true)
      ReactDOM.render(<Box
-       bg='#000000' position='relative' borderRadius={30} padding={20} width={320}
+       bg='#000000' position='relative' borderRadius={30} padding={20} width={280}
        >
-      <h4 align="center" style={{ fontWeight: "bold", color: '#FFFFFF', lineHeight: 2.2 }}>
+      <h4 class="strikeInvoiceTitle">
        Invoice
       </h4>
       <Box position='absolute'>
         <a href={`lightning:${data}`}>
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
             <rect
-              className="invoiceCountdown"
+              class="invoiceCountdown"
               x='2'
               y='2'
               width={size - 4}
@@ -79,13 +86,13 @@ export class Util {
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
               <rect
                 onAnimationEnd={() => {
-                  $('.refreshButton').css('display', 'block')
+                  $('.strikeInvoiceRefresh').css('display', 'block')
                   $('.invoiceQR').css('filter','blur(2px)')
-                  $('.invoiceInfo').text('Invoice has expired')
+                  $('.strikeInvoiceInfo').text('Invoice has expired')
                   $('.invoiceCountdown').attr('stroke', '#333333')
-                  $('.invoiceAnimate').css('display', 'none')
+                  $('.strikeInvoiceAnimate').css('display', 'none')
                 }}
-                className="rect invoiceAnimate"
+                className="strikeInvoiceAnimate"
                 x='2'
                 y='2'
                 width={size - 4}
@@ -117,34 +124,29 @@ export class Util {
           className="invoiceQR" value={data} size={208} />
         </Center>
       </Flex>
-      <h6 className="invoiceInfo" align="center" style={{ color: '#FF9B00', lineHeight: 2.2 }}>
+      <h6 class="strikeInvoiceInfo">
        Pay with a Lightning Wallet
       </h6>
-      <Box borderRadius={10} className="parentDiv">
-        <Text align="center" style={{ color: '#FFFFFF', lineHeight: 3.2, fontFamily: "MONOSPACE" }}>{copyCodeText}
+      <Box className="strikeInvoiceCopy">
+        {copyCodeText}
         <CopyToClipboard
           onCopy={() => { isCopied = true }}
-          className="copyButton copyButtonDark"
+          className="strikeInvoiceCopyButton strikeInvoiceCopyButtonDark"
           text={data} >
-          <button classname="copyInvoiceButton" style={{lineHeight: "revert" }} type="button" aria-label="Copy to Clipboard">
-            {isCopied ? <FaRegClipboard fill="#FFFFFF"/> : <VscCopy fill='#FFFFFF'/>}
+          <button class="copyInvoiceButton" type="button" aria-label="Copy to Clipboard">
+            {isCopied ? <FaRegClipboard color="#FFFFFF" size="1em" /> : <VscCopy color='#FFFFFF' size="1em" />}
           </button>
         </CopyToClipboard>
-        </Text>
       </Box>
-      <hr
-        style={{
-          color: '#333333',
-          backgroundColor: '#333333',
-          height: 1
-        }}
-      />
-      <h4 style={{ fontSize: "15px", float: "left", color: '#CCCCCC', lineHeight: 2.2 }}>
-       Amount
-      </h4>
-      <h4 align="right" style={{ fontSize: "15px", color: '#FFFFFF', fontWeight: 'bold', lineHeight: 2.2 }}>
-       {formattedAmount}
-      </h4>
+      <hr class="strikeInvoiceSeperator"/>
+      <Box className="strikeInvoiceAmountContainer">
+        <h4 class="strikeInvoiceAmountLabel">
+         Amount
+        </h4>
+        <h4 class="strikeInvoiceAmount">
+         {formattedAmount}
+        </h4>
+      </Box>
       <Button
         onClick={() => {
           // Process new request
@@ -155,12 +157,12 @@ export class Util {
           })
           // toggle qr blur and refresh
           $('.invoiceQR').css('filter','none')
-          $('.invoiceInfo').text('Pay with a Lightning Wallet')
-          $('.refreshButton').css('display', 'none')
+          $('.strikeInvoiceInfo').text('Pay with a Lightning Wallet')
+          $('.strikeInvoiceRefresh').css('display', 'none')
           $('.invoiceCountdown').attr('stroke', brandColor)
-          $('.invoiceAnimate').css('display', 'block')
+          $('.strikeInvoiceAnimate').css('display', 'block')
         }}
-        style={{ display: "none" }}width={size - 4} className="refreshButton"> Refresh </Button>
+        style={{ display: "none" }}width={size - 4} class="strikeInvoiceRefresh"> Refresh </Button>
     </Box>, $(element)[0])
    }
 

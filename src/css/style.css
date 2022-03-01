@@ -1,56 +1,4 @@
-.strike-overlay {
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: none;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 999;
-  font-family: 'Lato', 'Helvetica', 'Arial', 'Sans-Serif', sans-serif;
-}
-
-#paymentInfo,
-#QrSlider,
-#paymentRequestRefresh,
-#paymentRequestInvoiceCopy {
-  display: none;
-}
-
-/* Strike Button Styling */
-.strike-btn {
- box-sizing: border-box;
- margin: 0px 0px 12px;
- min-width: 0px;
- appearance: none;
- display: inline-block;
- text-align: center;
- text-decoration: none;
- border: 1px solid rgb(255, 255, 255);
- font-family: Montserrat, system-ui, sans-serif;
- line-height: 1.4;
- font-weight: 700;
- color: rgb(255, 255, 255);
- font-size: 13px;
- outline: none;
- border-radius: 30px;
- padding: 15px 35px;
- cursor: pointer;
- width: 100%;
-}
-
-.qrCodeExpired {
-  filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-#paymentInfo {
-  color: rgb(253, 152, 0);
-}
-
-.rect {
+.strikeInvoiceAnimate {
   animation-name: dash;
   animation-timing-function: linear;
   animation-direction: normal;
@@ -62,7 +10,7 @@
   }
 }
 
-.refreshButton {
+.strikeInvoiceRefresh {
   border-radius: 100px;
   border: 2px solid #FFFFFF;
   box-sizing: border-box;
@@ -86,4 +34,70 @@
   font-weight: bold;
   font-size: 16px;
   line-height: 25px;
+}
+
+.strikeInvoiceTitle {
+  /* styleName: Headline 3/Bold; */
+  font-family: "Montserrat";
+  box-sizing: border-box;
+  margin-top: 0;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.strikeInvoiceInfo {
+  /* styleName: Body 2/Medium; */
+  font-family: "Montserrat";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #FF9B00;
+}
+
+.strikeInvoiceSeperator {
+  left: 0px;
+  top: 0px;
+  border: 1px solid #333333;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+  margin: 16px 0px;
+  background: #333333;
+}
+
+.strikeInvoiceAmountLabel {
+  /* styleName: Body 2/Medium; */
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  color: #CCCCCC;
+  float: left;
+  height: 20px;
+}
+
+.strikeInvoiceAmount {
+  /* styleName: Body 2/Bold; */
+  font-family: Montserrat;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  float: right;
+  height: 20px;
+}
+
+.strikeInvoiceAmountContainer {
+  height: 60px;
+  clear:both;
 }
