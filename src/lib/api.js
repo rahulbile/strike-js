@@ -89,15 +89,11 @@ export class Api {
             return response.json().then(payment => {
               Util.logDebug('Api.paymentRequest res:', payment)
               if (_.includes(['PAID', 'UNPAID'], payment.state)) {
-                if (payment.state === 'PAID' &&  _.get(sjs.config, 'redirectUrl', false)) {
+                if (payment.state === 'PAID') {
+                  Util.logDebug('Util.paymentSuccessCard', invoiceId)
                   clearInterval(interval)
                   resolve(payment)
-                } else if (payment.state === 'PAID' &&  !_.get(sjs.config, 'redirectUrl', false)) {
-                  // no redirect url specified so just show completion tick
-                  Util.logDebug('Util.paymentSuccessCard', invoiceId)
-                  resolve(payment)
                   Util.paymentSuccessCard(sjs.config, invoiceId)
-
                 }
                 if (payment.state === 'UNPAID') {
                   // Check if the quote is expired or no

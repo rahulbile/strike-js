@@ -28,8 +28,9 @@ export class Util {
 
    static paymentSuccessCard(config, invoiceId) {
      Util.logDebug('Util.paymentSuccessCard: Payment success', true)
-     const redirectMessage = _.get(config, 'redirectMessage', 'Thanks for payment.')
+     const redirectMessage = _.get(config, 'redirectMessage', false)
      const redirectCallback = _.get(config, 'redirectCallback', false)
+     const redirectUrl = _.get(config, 'redirectUrl', false)
 
      if(redirectCallback) {
        Util.logDebug('Util.paymentSuccessCard: calling redirect callback', redirectCallback)
@@ -37,12 +38,15 @@ export class Util {
      } else if (redirectMessage) {
        Util.logDebug('Util.paymentSuccessCard: showing redirect message', true)
        ReactDOM.render(
-         <Box bg='#000000' position='relative' borderRadius={30} padding={20} width={280}>
-           <h4 align="center" style={{ fontWeight: "bold", color: '#FFFFFF', lineHeight: 2.2 }}>
+         <Box className="strikeInvoiceInfo" bg='#000000' position='relative' borderRadius={30} padding={20} width={280}>
+           <h4>
              {redirectMessage}
             </h4>
           </Box>,
-        $(_.get(config,'element', ''))[0])
+        $(_.get(config,'element'))[0])
+     } else if (redirectUrl) {
+       Util.logDebug('Util.paymentSuccessCard: calling redirect url', redirectUrl)
+       Dom.navigateTo(redirectUrl)
      }
    }
 
@@ -56,18 +60,18 @@ export class Util {
      }).format(_.get(amount, 'amount'))
      expiration = (new Date(expiration).getTime() - new Date().getTime()) / 1000;
      const brandColor = '#CCFF00';
-     const size = 280;
+     const size = 256;
      let isCopied = false
      const copyCodeText = data.slice(0,16) + '...'
     // const [isCopied, setIsCopied] = useState(false);
      Util.logDebug('Util.addPaymentCard', true)
      ReactDOM.render(<Box
-       bg='#000000' position='relative' borderRadius={30} padding={20} width={280}
+       bg='#000000' position='relative' borderRadius={30} padding={30} width={260}
        >
       <h4 class="strikeInvoiceTitle">
        Invoice
       </h4>
-      <Box position='absolute'>
+      <Box className="strikeInvoiceQR" position='absolute'>
         <a href={`lightning:${data}`}>
           <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
             <rect
@@ -121,7 +125,7 @@ export class Util {
       >
         <Center bg='white' borderRadius={15} boxSizing='border-box' p={15}>
           <QRCodeReact includeMargin={true}
-          className="invoiceQR" value={data} size={208} />
+          className="invoiceQR" value={data} size={175} />
         </Center>
       </Flex>
       <h6 class="strikeInvoiceInfo">
@@ -162,7 +166,7 @@ export class Util {
           $('.invoiceCountdown').attr('stroke', brandColor)
           $('.strikeInvoiceAnimate').css('display', 'block')
         }}
-        style={{ display: "none" }}width={size - 4} class="strikeInvoiceRefresh"> Refresh </Button>
+        style= {{ display: "none" }} width={size - 4} class="strikeInvoiceRefresh"> Refresh </Button>
     </Box>, $(element)[0])
    }
 
