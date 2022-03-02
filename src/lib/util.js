@@ -65,8 +65,8 @@ export class Util {
      const copyCodeText = data.slice(0,16) + '...'
     // const [isCopied, setIsCopied] = useState(false);
      Util.logDebug('Util.addPaymentCard', true)
-     ReactDOM.render(<Box
-       bg='#000000' position='relative' borderRadius={30} padding={30} width={260}
+     ReactDOM.render(<Box className="strikeInvoiceCardBox"
+       bg='#000000' position='relative' borderRadius={30} maxWidth={280}
        >
       <h4 class="strikeInvoiceTitle">
        Invoice

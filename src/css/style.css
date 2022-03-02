@@ -1,3 +1,8 @@
+.strikeInvoiceCardBox {
+  padding: 24px 0 24px 24px;
+  left: calc(50% - 118px);
+}
+
 .strikeInvoiceAnimate {
   animation-name: dash;
   animation-timing-function: linear;
