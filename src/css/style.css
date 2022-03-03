@@ -1,6 +1,7 @@
 .strikeInvoiceCardBox {
   padding: 24px 0 24px 24px;
   left: calc(50% - 118px);
+  width: 304px;
 }
 
 .strikeInvoiceAnimate {
@@ -87,6 +88,7 @@
   color: #CCCCCC;
   float: left;
   height: 20px;
+  clear: none;
 }
 
 .strikeInvoiceAmount {
@@ -99,6 +101,7 @@
   color: #FFFFFF;
   float: right;
   height: 20px;
+  clear: none;
 }
 
 .strikeInvoiceAmountContainer {
