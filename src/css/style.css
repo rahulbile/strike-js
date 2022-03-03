@@ -1,6 +1,6 @@
 .strikeInvoiceCardBox {
   padding: 24px 0 24px 24px;
-  left: calc(50% - 118px);
+  margin: 0 auto;
   width: 304px;
 }
 

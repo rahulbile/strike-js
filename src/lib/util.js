@@ -138,7 +138,7 @@ export class Util {
           className="strikeInvoiceCopyButton strikeInvoiceCopyButtonDark"
           text={data} >
           <button class="copyInvoiceButton" type="button" aria-label="Copy to Clipboard">
-            {isCopied ? <FaRegClipboard color="#FFFFFF" size="1em" /> : <VscCopy color='#FFFFFF' size="1em" />}
+            {isCopied ? <FaRegClipboard color="#FFFFFF" style= {{ display: "inline" }} size="1em" /> : <VscCopy style= {{ display: "inline" }} color='#FFFFFF' size="1em" />}
           </button>
         </CopyToClipboard>
       </Box>
