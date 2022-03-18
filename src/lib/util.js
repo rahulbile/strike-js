@@ -38,7 +38,7 @@ export class Util {
      } else if (redirectMessage) {
        Util.logDebug('Util.paymentSuccessCard: showing redirect message', true)
        ReactDOM.render(
-         <Box className="strikeInvoiceInfo" bg='#000000' position='relative' borderRadius={30} padding={20} width={280}>
+         <Box className="strikeInvoiceInfo" bg='#000000' position='relative' borderRadius={30} padding={20} >
            <h4>
              {redirectMessage}
             </h4>
@@ -60,113 +60,115 @@ export class Util {
      }).format(_.get(amount, 'amount'))
      expiration = (new Date(expiration).getTime() - new Date().getTime()) / 1000;
      const brandColor = '#CCFF00';
-     const size = 256;
+     const size = 232;
      let isCopied = false
-     const copyCodeText = data.slice(0,16) + '...'
+     const copyCodeText = data.slice(0,16) + '...  '
     // const [isCopied, setIsCopied] = useState(false);
      Util.logDebug('Util.addPaymentCard', true)
      ReactDOM.render(<Box className="strikeInvoiceCardBox"
-       bg='#000000' position='relative' borderRadius={30} maxWidth={304}
+       bg='#000000' position='relative' borderRadius={30} maxWidth={280}
        >
-      <h4 class="strikeInvoiceTitle">
-       Invoice
-      </h4>
-      <Box className="strikeInvoiceQR" position='absolute'>
-        <a href={`lightning:${data}`}>
-          <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-            <rect
-              class="invoiceCountdown"
-              x='2'
-              y='2'
-              width={size - 4}
-              height={size - 4}
-              fill='none'
-              stroke={brandColor}
-              strokeWidth='4'
-              rx='28'
-            />
-          </svg>
-          <Box position='absolute' top={0} left={0}>
+      <Box className="strikeInvoiceData">
+        <h4 class="strikeInvoiceTitle">
+         Invoice
+        </h4>
+        <Box className="strikeInvoiceQR" position='absolute'>
+          <a href={`lightning:${data}`}>
             <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
               <rect
-                onAnimationEnd={() => {
-                  $('.strikeInvoiceRefresh').css('display', 'block')
-                  $('.invoiceQR').css('filter','blur(2px)')
-                  $('.strikeInvoiceInfo').text('Invoice has expired')
-                  $('.invoiceCountdown').attr('stroke', '#333333')
-                  $('.strikeInvoiceAnimate').css('display', 'none')
-                }}
-                className="strikeInvoiceAnimate"
+                class="invoiceCountdown"
                 x='2'
                 y='2'
                 width={size - 4}
                 height={size - 4}
                 fill='none'
-                stroke='#333333'
-                strokeWidth='6'
-                strokeDashoffset={size * 4}
-                strokeDasharray={size * 4}
+                stroke={brandColor}
+                strokeWidth='4'
                 rx='28'
-                style={{
-                  animationDuration: `${expiration}s`,
-                }}
               />
             </svg>
-          </Box>
-        </a>
-      </Box>
-      <Flex
-        w={size}
-        h={size}
-        bg='#333333'
-        borderRadius={30}
-        alignItems='center'
-        justifyContent='center'
-      >
-        <Center bg='white' borderRadius={15} boxSizing='border-box' p={15}>
-          <QRCodeReact includeMargin={true}
-          className="invoiceQR" value={data} size={175} />
-        </Center>
-      </Flex>
-      <h6 class="strikeInvoiceInfo">
-       Pay with a Lightning Wallet
-      </h6>
-      <Box className="strikeInvoiceCopy">
-        {copyCodeText}
-        <CopyToClipboard
-          onCopy={() => { isCopied = true }}
-          className="strikeInvoiceCopyButton strikeInvoiceCopyButtonDark"
-          text={data} >
-          <button class="copyInvoiceButton" type="button" aria-label="Copy to Clipboard">
-            {isCopied ? <FaRegClipboard color="#FFFFFF" style= {{ display: "inline" }} size="1em" /> : <VscCopy style= {{ display: "inline" }} color='#FFFFFF' size="1em" />}
-          </button>
-        </CopyToClipboard>
-      </Box>
-      <hr class="strikeInvoiceSeperator"/>
-      <Box className="strikeInvoiceAmountContainer">
-        <h4 class="strikeInvoiceAmountLabel">
-         Amount
-        </h4>
-        <h4 class="strikeInvoiceAmount">
-         {formattedAmount}
-        </h4>
-      </Box>
-      <Button
-        onClick={() => {
-          // Process new request
-          payment.generateInvoice({
-            'amount': _.get(amount, 'amount'),
-            'currency': _.get(amount, 'currency'),
-            element
-          })
-          // toggle qr blur and refresh
-          $('.invoiceQR').css('filter','none')
-          $('.strikeInvoiceInfo').text('Pay with a Lightning Wallet')
-          $('.strikeInvoiceRefresh').css('display', 'none')
-          $('.invoiceCountdown').attr('stroke', brandColor)
-          $('.strikeInvoiceAnimate').css('display', 'block')
-        }}
-        style= {{ display: "none" }} width={size - 4} class="strikeInvoiceRefresh"> Refresh </Button>
+            <Box position='absolute' top={0} left={0}>
+              <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+                <rect
+                  onAnimationEnd={() => {
+                    $('.strikeInvoiceRefresh').css('display', 'block')
+                    $('.invoiceQR').css('filter','blur(2px)')
+                    $('.strikeInvoiceInfo').text('Invoice has expired')
+                    $('.invoiceCountdown').attr('stroke', '#333333')
+                    $('.strikeInvoiceAnimate').css('display', 'none')
+                  }}
+                  className="strikeInvoiceAnimate"
+                  x='2'
+                  y='2'
+                  width={size - 4}
+                  height={size - 4}
+                  fill='none'
+                  stroke='#333333'
+                  strokeWidth='6'
+                  strokeDashoffset={size * 4}
+                  strokeDasharray={size * 4}
+                  rx='28'
+                  style={{
+                    animationDuration: `${expiration}s`,
+                  }}
+                />
+              </svg>
+            </Box>
+          </a>
+        </Box>
+        <Flex
+          h={size}
+          w={size}
+          bg='#333333'
+          borderRadius={30}
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Center bg='white' borderRadius={15} boxSizing='border-box' p={15}>
+            <QRCodeReact includeMargin={true}
+            className="invoiceQR" value={data} size={175} />
+          </Center>
+        </Flex>
+        <h6 class="strikeInvoiceInfo">
+         Pay with a Lightning Wallet
+        </h6>
+        <Box className="strikeInvoiceCopy">
+          {copyCodeText}
+          <CopyToClipboard
+            onCopy={() => { isCopied = true }}
+            className="strikeInvoiceCopyButton strikeInvoiceCopyButtonDark"
+            text={data} >
+            <button class="copyInvoiceButton" type="button" aria-label="Copy to Clipboard">
+              {isCopied ? <FaRegClipboard color="#FFFFFF" style= {{ display: "inline" }} size="1em" /> : <VscCopy style= {{ display: "inline" }} color='#FFFFFF' size="1em" />}
+            </button>
+          </CopyToClipboard>
+        </Box>
+        <hr class="strikeInvoiceSeperator"/>
+        <Box className="strikeInvoiceAmountContainer">
+          <h4 class="strikeInvoiceAmountLabel">
+           Amount
+          </h4>
+          <h4 class="strikeInvoiceAmount">
+           {formattedAmount}
+          </h4>
+        </Box>
+        <Button
+          onClick={() => {
+            // Process new request
+            payment.generateInvoice({
+              'amount': _.get(amount, 'amount'),
+              'currency': _.get(amount, 'currency'),
+              element
+            })
+            // toggle qr blur and refresh
+            $('.invoiceQR').css('filter','none')
+            $('.strikeInvoiceInfo').text('Pay with a Lightning Wallet')
+            $('.strikeInvoiceRefresh').css('display', 'none')
+            $('.invoiceCountdown').attr('stroke', brandColor)
+            $('.strikeInvoiceAnimate').css('display', 'block')
+          }}
+          style= {{ display: "none" }} width={size - 4} class="strikeInvoiceRefresh"> Refresh </Button>
+        </Box>
     </Box>, $(element)[0])
    }
 

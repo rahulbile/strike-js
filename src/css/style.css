@@ -1,7 +1,6 @@
 .strikeInvoiceCardBox {
-  padding: 24px 0 24px 24px;
   margin: 0 auto;
-  width: 304px;
+  width: 280px;
 }
 
 .strikeInvoiceAnimate {
@@ -31,13 +30,14 @@
   background: #000000;
   flex-grow: 1;
   margin: 0px 0px;
-  padding: 15px 49px;
   color: #FFFFFF;
   font-style: normal;
   font-weight: bold;
   font-size: 16px;
   line-height: 25px;
-  width: 256px;
+  height: 55px;
+  width:232px;
+  padding: 15px 49px;
 }
 
 .strikeInvoiceTitle {
@@ -62,7 +62,7 @@
   letter-spacing: 0px;
   text-align: center;
   color: #FF9B00;
-  width: 256px;
+  width: 236px;
 }
 
 .strikeInvoiceSeperator {
@@ -75,7 +75,7 @@
   flex-grow: 0;
   margin: 16px 0px;
   background: #333333;
-  width: 256px;
+  width: 232px;
 }
 
 .strikeInvoiceAmountLabel {
@@ -104,12 +104,12 @@
   clear: none;
 }
 
+.strikeInvoiceData{
+  padding: 24px;
+}
+
 .strikeInvoiceAmountContainer {
   height: 60px;
   clear:both;
-  width: 256px;
-}
-
-.strikeInvoiceQR {
-  width: 256px;
+  width: 232px;
 }
