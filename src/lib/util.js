@@ -51,7 +51,6 @@ export class Util {
    }
 
    static addPaymentCard(data, amount, element = '#strikeInvoice', expiration) {
-     Util.logDebug('Util.addPaymentCard', data)
      // Here currency could be passed as _.get(amount, 'currency')
      const formattedAmount = new Intl.NumberFormat("en-US", {
        style: "currency",
@@ -91,8 +90,8 @@ export class Util {
               <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
                 <rect
                   onAnimationEnd={() => {
-                    $('.strikeInvoiceRefresh').css('display', 'block')
                     $('.invoiceQR').css('filter','blur(2px)')
+                    $('.strikeInvoiceRefresh').css('display', 'block')
                     $('.strikeInvoiceInfo').text('Invoice has expired')
                     $('.invoiceCountdown').attr('stroke', '#333333')
                     $('.strikeInvoiceAnimate').css('display', 'none')

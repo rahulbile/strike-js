@@ -4,6 +4,9 @@
 
 import _ from 'lodash'
 import { Dom } from './dom'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { Box } from "@chakra-ui/react";
 import { Util } from './util'
 import { api } from './api'
 
@@ -53,6 +56,7 @@ export class Payment {
    * Process the generateInvoice request
    */
   processGenerateInvoice(config) {
+    ReactDOM.render(<Box className="strikeInvoiceCardBox strike-payment-loader"><Box></Box><Box></Box><Box></Box><Box></Box><Box></Box><Box></Box><Box></Box><Box></Box></Box>, $(config.element)[0])
     return new Promise((resolve, reject) => {
       var currenTime = new Date();
       let expirationTime
