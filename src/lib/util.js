@@ -14,8 +14,7 @@ import { Dom } from './dom'
 import log from 'loglevel'
 import {
   strikeInvoiceCopy,
-  strikeInvoiceCopyButton,
-  strikeInvoiceCopyButtonDark,
+  strikeInvoiceCopyButton
 } from "../css/style.sass";
 
 export class Util {
@@ -60,9 +59,7 @@ export class Util {
      expiration = (new Date(expiration).getTime() - new Date().getTime()) / 1000;
      const brandColor = '#CCFF00';
      const size = 232;
-     let isCopied = false
      const copyCodeText = data.slice(0,16) + '...  '
-    // const [isCopied, setIsCopied] = useState(false);
      Util.logDebug('Util.addPaymentCard', true)
      ReactDOM.render(<Box className="strikeInvoiceCardBox"
        bg='#000000' position='relative' borderRadius={30} maxWidth={280}
@@ -134,11 +131,10 @@ export class Util {
         <Box className="strikeInvoiceCopy">
           {copyCodeText}
           <CopyToClipboard
-            onCopy={() => { isCopied = true }}
-            className="strikeInvoiceCopyButton strikeInvoiceCopyButtonDark"
+            className="strikeInvoiceCopyButton"
             text={data} >
             <button class="copyInvoiceButton" type="button" aria-label="Copy to Clipboard">
-              {isCopied ? <FaRegClipboard color="#FFFFFF" style= {{ display: "inline" }} size="1em" /> : <VscCopy style= {{ display: "inline" }} color='#FFFFFF' size="1em" />}
+              <VscCopy style= {{ display: "inline" }} size="1em" />
             </button>
           </CopyToClipboard>
         </Box>

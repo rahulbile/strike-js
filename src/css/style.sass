@@ -25,18 +25,15 @@
   transition: color 2s ease
   background: transparent
   border: none transparent // none is required for IE11 Support
-  color: #434343
+  color: #FFFFFF
   button
     border: none transparent // none is required for IE11 Support
   &:focus
     outline: 0
-    color: #0000FF
+    -webkit-filter: drop-shadow( 0 0 5px #f0f )
+    filter: drop-shadow( 0 0 5px #f0f )
+    text-decoration: none
   &:hover
-    color: #ADD8E6
-
-.strikeInvoiceCopyButtonDark
-  color: #FFFFFF
-  &:focus
-    color: #00008B
-  &:hover
-    color: #0000FF
+     -webkit-filter: drop-shadow( 0 0 5px #f0f )
+     filter: drop-shadow( 0 0 5px #f0f )
+     text-decoration: none
