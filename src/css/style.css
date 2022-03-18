@@ -119,6 +119,12 @@
   height: 520px;
   background: #000000;
   border-radius: 30px;
+  color: #FFFFFF;
+}
+
+.strike-payment-loader svg {
+  margin: 80px;
+  top: 120px;
 }
 
 .strike-payment-loader div {
