@@ -118,6 +118,7 @@
   width: 280px;
   height: 520px;
   background: #000000;
+  border-radius: 30px;
 }
 
 .strike-payment-loader div {
