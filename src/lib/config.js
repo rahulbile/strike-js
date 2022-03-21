@@ -15,7 +15,7 @@ export class Config {
       // Check if the required fields are there
       const requiredKeys = ['element', 'currency', 'submitButton', 'apiKey']
 
-      if ($(config.submitButton).length !== 1) {
+      if (jQuery(config.submitButton).length !== 1) {
         Util.logInfo(`strikeJS configuration error: submitButton ${config.submitButton} not found`)
       }
 
@@ -33,7 +33,7 @@ export class Config {
       sjs.fields = Util.getPageFields(config)
 
       // Attach the creditcard submit button
-      $(config.submitButton).on('click', event => {
+      jQuery(config.submitButton).on('click', event => {
         event.preventDefault()
         return payment.handleSubmit()
       })

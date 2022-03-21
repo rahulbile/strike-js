@@ -42,7 +42,7 @@ export class Util {
              {redirectMessage}
             </h4>
           </Box>,
-        $(_.get(config,'element'))[0])
+        jQuery(_.get(config,'element'))[0])
      } else if (redirectUrl) {
        Util.logDebug('Util.paymentSuccessCard: calling redirect url', redirectUrl)
        Dom.navigateTo(redirectUrl)
@@ -87,11 +87,11 @@ export class Util {
               <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
                 <rect
                   onAnimationEnd={() => {
-                    $('.invoiceQR').css('filter','blur(2px)')
-                    $('.strikeInvoiceRefresh').css('display', 'block')
-                    $('.strikeInvoiceInfo').text('Invoice has expired')
-                    $('.invoiceCountdown').attr('stroke', '#333333')
-                    $('.strikeInvoiceAnimate').css('display', 'none')
+                    jQuery('.invoiceQR').css('filter','blur(2px)')
+                    jQuery('.strikeInvoiceRefresh').css('display', 'block')
+                    jQuery('.strikeInvoiceInfo').text('Invoice has expired')
+                    jQuery('.invoiceCountdown').attr('stroke', '#333333')
+                    jQuery('.strikeInvoiceAnimate').css('display', 'none')
                   }}
                   className="strikeInvoiceAnimate"
                   x='2'
@@ -156,15 +156,15 @@ export class Util {
               element
             })
             // toggle qr blur and refresh
-            $('.invoiceQR').css('filter','none')
-            $('.strikeInvoiceInfo').text('Pay with a Lightning Wallet')
-            $('.strikeInvoiceRefresh').css('display', 'none')
-            $('.invoiceCountdown').attr('stroke', brandColor)
-            $('.strikeInvoiceAnimate').css('display', 'block')
+            jQuery('.invoiceQR').css('filter','none')
+            jQuery('.strikeInvoiceInfo').text('Pay with a Lightning Wallet')
+            jQuery('.strikeInvoiceRefresh').css('display', 'none')
+            jQuery('.invoiceCountdown').attr('stroke', brandColor)
+            jQuery('.strikeInvoiceAnimate').css('display', 'block')
           }}
           style= {{ display: "none" }} width={size - 4} class="strikeInvoiceRefresh"> Refresh </Button>
         </Box>
-    </Box>, $(element)[0])
+    </Box>, jQuery(element)[0])
    }
 
    static logDebug(msg, obj) {
@@ -182,50 +182,50 @@ export class Util {
    static startLoading() {
      Util.disableInputs()
      Util.logDebug('StrikeJS.startLoading')
-     $('.strike-loading-overlay').fadeIn(250)
+     jQuery('.strike-loading-overlay').fadeIn(250)
    }
 
    static stopLoading() {
      Util.enableInputs()
      Util.logDebug('StrikeJS.stopLoading')
-     $('.strike-loading-overlay').fadeOut(500)
+     jQuery('.strike-loading-overlay').fadeOut(500)
    }
 
    /**
     * Create and handle error overlay
     */
    static createErrorOverlay() {
-     if ($('#strikeErrorOverlay').length) {
+     if (jQuery('#strikeErrorOverlay').length) {
        Util.logDebug('StrikeJS.createErrorOverlay already exists')
        return true
      }
      Util.logDebug('StrikeJS.createErrorOverlay')
-     const overlay = $('<div>', {
+     const overlay = jQuery('<div>', {
        id: 'strikeErrorOverlay',
        class: 'strike-error-overlay strike-overlay',
      })
-     const message = $('<div>', {
+     const message = jQuery('<div>', {
        class: 'strike-error-message',
      })
 
      overlay.append(message)
      overlay.on('click', () => Util.hideError())
-     $('body').prepend(overlay)
+     jQuery('body').prepend(overlay)
      return null
    }
 
    static showError(msg) {
      Util.logDebug('StrikeJS.showError')
-     $('.strike-loading-overlay').hide()
-     $('.strike-error-overlay').fadeIn(250)
-     $('.strike-error-overlay .strike-error-message').html(msg)
+     jQuery('.strike-loading-overlay').hide()
+     jQuery('.strike-error-overlay').fadeIn(250)
+     jQuery('.strike-error-overlay .strike-error-message').html(msg)
    }
 
    static hideError() {
      Util.enableInputs()
      Util.logDebug('StrikeJS.hideError')
-     $('.strike-error-overlay').fadeOut(500)
-     $(sjs.config.submitButton).removeClass('disabled')
+     jQuery('.strike-error-overlay').fadeOut(500)
+     jQuery(sjs.config.submitButton).removeClass('disabled')
    }
 
    /**
@@ -233,12 +233,12 @@ export class Util {
     */
    static disableInputs() {
      Util.logDebug('StrikeJS.disableInputs')
-     $('[id^=strike-]').attr('disabled', true)
+     jQuery('[id^=strike-]').attr('disabled', true)
    }
 
    static enableInputs() {
      Util.logDebug('StrikeJS.enableInputs')
-     $('[id^=strike-]').attr('disabled', false)
+     jQuery('[id^=strike-]').attr('disabled', false)
    }
 
    /**

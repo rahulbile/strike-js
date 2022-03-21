@@ -8,9 +8,9 @@ export class Bootstrap {
    * Load the external dependencies
    */
   static loadDependencies(cb) {
-    $.when(
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.min.js'),
-      $.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js')
+    jQuery.when(
+      jQuery.getScript('//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.2.8/es6-promise.min.js'),
+      jQuery.getScript('//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js')
     )
       .done(() => {
         // Ensure that validate.js knows about our Promise implementation, which may have become
