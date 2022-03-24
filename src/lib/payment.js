@@ -63,8 +63,9 @@ export class Payment {
       var currenTime = new Date();
       let expirationTime
       let invoiceId
+      var timeStamp = Math.round((new Date()).getTime() / 1000);
       // generate correlationId using SJS version and Provided value
-      let correlationId = 'strikeJS-' + SJS_BUILD + '-' + _.get(config, 'correlationId', 'standalone');
+      let correlationId = 'SJS-' + timeStamp + '-' + _.get(config, 'correlationId', 'standalone');
       const payParams = {
         amount: {
           'amount': _.get(config, 'amount'),
